@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Song</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<!--    <script src="script.js" defer></script>-->
+</head>
+<body>
+<div>
+    <canvas id="chart" width="600" height="200"></canvas>
+</div>
+    <script>
+        const ctx = document.getElementById('chart').getContext('2d');
+        const xlabel = [];
+        const yLabelPopularity = [];
+        const yLabelDanceability = []
+        verticalChart();
+        async function verticalChart () {
+            await getSongData();
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: xlabel,
+                    barPercentage: 0.8,
+                    datasets: [
+                        {
+                            label: 'Popularity',
+                            data: yLabelPopularity,
+                            backgroundColor: [
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)'
+                            ],
+                            borderWidth: 1
+                    },
+                        {
+                            label: 'Danceability',
+                            barPercentage: 0.8,
+                            data: yLabelDanceability,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)'
+                            ],
+                            borderWidth: 1
+                        },
+
+                    ]
+                },
+            });
+        }
+
+        async function getSongData() {
+            const url = "http://localhost:4000/api/topsong"
+            const response = await fetch(url, {
+                method: 'POST',
+                headers:{"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    query: `
+             query AllSongs {
+              allSongs {
+                artistName
+                trackName
+                popularity
+                danceability
+              }
+            }
+            `
+                }),
+            });
+            const data = await response.json();
+            data.data.allSongs.forEach(element => {
+                const artistName = element.artistName;
+                const popularity = element.popularity;
+                const danceability = element.danceability;
+                xlabel.push(artistName);
+                yLabelPopularity.push(popularity);
+                yLabelDanceability.push(danceability);
+                console.log(element.artistName);
+            });
+        }
+    </script>
+</body>
+</html>
