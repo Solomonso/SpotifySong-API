@@ -8,6 +8,7 @@
 </head>
 <body>
 <div>
+    <h2 style="text-align: center">Top Songs of 2015</h2>
     <canvas id="chart" width="600" height="200"></canvas>
 </div>
     <script>
@@ -15,6 +16,7 @@
         const xlabel = [];
         const yLabelPopularity = [];
         const yLabelDanceability = []
+        let delayed;
         verticalChart();
         async function verticalChart () {
             await getSongData();
@@ -83,8 +85,7 @@
                             ],
                             borderWidth: 1
                         },
-
-                    ]
+                    ],
                 },
             });
         }
