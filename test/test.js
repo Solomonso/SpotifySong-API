@@ -62,22 +62,23 @@ test('Add song', async () => {
     mutation CreateSong($id: ID!, $trackName: String!, $artistName: String!, $genre: String!, $danceability: Int, $valence: Int, $popularity: Int) {
           createSon(id: $id, trackName: $trackName, artistName: $artistName, genre: $genre, danceability: $danceability, valence: $valence, popularity: $popularity) {
             artistName
-            id
+            trackName
           }
         }`;
 
     const {data: {createSong} } = await server.executeOperation({
         query: ADD_SONG,
+        variables: {
+            id: "ff0eb786-969c-4125-b2d9-0f61e788202c",
+            trackName: "Alot",
+            artistName: "21 Savage ft J cole",
+            genre: "Rap",
+            danceability: 65,
+            valence: 78,
+            popularity: 99
+        }
     });
-    expect(createSong).toEqual({
-        "id": "ff0eb786-969c-4125-b2d9-0f61e788202c",
-        "trackName": "Alot",
-        "artistName": "21 Savage ft J cole",
-        "genre": "Rap",
-        "danceability": 65,
-        "valence": 78,
-        "popularity": 99
-    });
+    expect(createSong).toEqual({artistName: "21 Savage ft J cole", trackName: "Alot"});
 });
 
 test('Delete song', async () => {

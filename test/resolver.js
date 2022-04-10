@@ -59,8 +59,8 @@ export default {
     Mutation: {
         createSong: (parent, args) => {
             const newSong = args;
-            newSong.push(newSong);
-            return newSong
+            songs.push(newSong);
+            return newSong;
         },
         deleteSong: (parent, {id}) => {
             const index = songs.findIndex(song => song.id === id);
