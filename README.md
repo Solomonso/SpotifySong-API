@@ -8,21 +8,22 @@ A [GraphQL API](https://graphql.org/code/#javascript) was built around a dataset
 
 ### Test
 
-[Integration test](https://www.apollographql.com/docs/apollo-server/v2/testing/testing/) was written for GraphQL queries and mutation APIs
+[Integration test](https://www.apollographql.com/docs/apollo-server/v2/testing/testing/) was written for the GraphQL queries and mutation APIs
 
 #### Frontend
 
-The data was visualized in a bar chart comparing the popularity and danceability of the each songs.[Chart.js](https://www.chartjs.org/) Library was used.
+The data was visualized in a bar chart comparing the popularity and danceability of the each songs. [Chart.js](https://www.chartjs.org/) Library was used.
 
 ### **Running  the project locally**
 
 - Configure [Postgres](https://www.postgresql.org/) and create a db called topSong
-- Edit the 'DATABASE_URL variable in the .env file
+- Edit the 'DATABASE_URL' variable in the .env file
 - Run the following commands:
 
 ```
 npm install
 npm run db:migrate
+npm run db:seed
 npm start
 ```
 
